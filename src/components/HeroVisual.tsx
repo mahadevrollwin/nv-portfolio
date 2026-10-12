@@ -18,138 +18,209 @@ export default function HeroVisual() {
     offset: ["start end", "end start"],
   });
 
-  // Open at rest → closes on scroll → slight reopen for a cinematic clap cycle
+  // Stick starts open; scroll drives repeated close ↔ open cycles
   const clapRaw = useTransform(
     scrollYProgress,
-    [0, 0.18, 0.38, 0.52, 0.72, 1],
-    [0, -22, -58, -6, -44, -20],
+    [0, 0.12, 0.24, 0.36, 0.48, 0.6, 0.72, 0.84, 1],
+    [-42, -8, -50, -6, -48, -10, -52, -8, -40],
   );
   const clapAngle = useSpring(clapRaw, {
-    stiffness: 110,
-    damping: 18,
-    mass: 0.35,
+    stiffness: 115,
+    damping: 17,
+    mass: 0.32,
   });
 
-  const swayRaw = useTransform(scrollYProgress, [0, 0.5, 1], [0, 2.8, -1.2]);
-  const sway = useSpring(swayRaw, { stiffness: 50, damping: 18 });
+  // Eyelids: 0.12 open → 1 closed, blink pulses along scroll
+  const blinkRaw = useTransform(
+    scrollYProgress,
+    [0, 0.13, 0.145, 0.16, 0.175, 0.35, 0.365, 0.38, 0.395, 0.55, 0.565, 0.58, 0.595, 0.74, 0.755, 0.77, 0.785, 1],
+    [0.12, 0.12, 1, 1, 0.12, 0.12, 1, 0.95, 0.12, 0.12, 1, 1, 0.12, 0.12, 1, 0.9, 0.12, 0.12],
+  );
+  const eyeScale = useSpring(blinkRaw, {
+    stiffness: 340,
+    damping: 24,
+    mass: 0.16,
+  });
 
-  const stickAngle = reduceMotion ? -28 : clapAngle;
-  const bodySway = reduceMotion ? 0 : sway;
+  const swayRaw = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1.4, -0.7]);
+  const sway = useSpring(swayRaw, { stiffness: 45, damping: 18 });
+
+  const stickAngle = reduceMotion ? -36 : clapAngle;
+  const lidScale = reduceMotion ? 0.12 : eyeScale;
+  const faceSway = reduceMotion ? 0 : sway;
 
   return (
     <div
       ref={containerRef}
-      className="relative mx-auto h-[52vh] w-full max-w-xl md:h-[62vh]"
+      className="relative mx-auto h-[58vh] w-full max-w-2xl sm:h-[64vh] md:-mr-4 md:h-[76vh] md:max-w-none lg:translate-x-6 lg:scale-[1.12]"
       aria-hidden="true"
     >
-      <div className="pointer-events-none absolute left-1/2 top-[52%] h-56 w-72 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(18,17,15,0.16)_0%,transparent_72%)] blur-2xl" />
+      <div className="pointer-events-none absolute left-[45%] top-[40%] h-[75%] w-[90%] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(18,17,15,0.2)_0%,rgba(255,77,13,0.07)_45%,transparent_72%)] blur-3xl" />
 
       <motion.svg
-        viewBox="0 0 520 640"
-        className="absolute inset-0 h-full w-full drop-shadow-[0_32px_48px_rgba(18,17,15,0.28)]"
-        style={{ rotate: bodySway }}
+        viewBox="0 0 680 700"
+        className="absolute inset-0 h-full w-full drop-shadow-[0_44px_80px_rgba(18,17,15,0.4)]"
+        style={{ rotate: faceSway }}
         role="img"
       >
-        <title>Silhouette of a man holding an open movie clapperboard</title>
+        <title>
+          Large face silhouette holding an open movie clapperboard with eyes visible in the gap
+        </title>
 
-        {/* Soft ground contact shadow */}
-        <ellipse cx="250" cy="598" rx="92" ry="14" fill="#0d0c0a" opacity="0.18" />
+        <defs>
+          <radialGradient id="faceBloom" cx="52%" cy="38%" r="50%">
+            <stop offset="0%" stopColor="#ff4d0d" stopOpacity="0.16" />
+            <stop offset="60%" stopColor="#12110f" stopOpacity="0" />
+          </radialGradient>
+        </defs>
 
-        {/* Unified body silhouette — male figure, 3/4 stance */}
+        <ellipse cx="340" cy="290" rx="240" ry="270" fill="url(#faceBloom)" />
+
+        {/* Large dramatic head — face only */}
         <path
           fill="#0d0c0a"
           d="
-            M236 72
-            C218 74 206 92 208 112
-            C210 132 218 148 228 160
-            C232 168 236 176 238 184
-            L252 184
-            C254 172 260 162 268 152
-            C282 134 292 112 286 90
-            C280 68 258 62 236 72 Z
-
-            M214 186
-            C200 190 188 204 184 222
-            C168 228 148 240 138 262
-            C126 288 122 318 128 342
-            C132 356 148 364 162 358
-            C174 352 184 338 192 324
-            C198 312 204 298 210 286
-            L214 286
-            C210 310 206 338 208 366
-            C210 402 214 438 218 474
-            C220 502 218 534 216 562
-            C214 574 222 582 236 580
-            L248 580
-            C250 548 248 514 246 484
-            C244 452 246 420 250 392
-            L262 392
-            C266 424 270 456 274 488
-            C276 520 280 552 286 580
-            C290 586 300 586 308 580
-            L318 578
-            C316 542 312 504 308 470
-            C304 430 302 392 304 358
-            C306 330 312 304 320 286
-            L326 292
-            C336 310 350 332 368 342
-            C384 352 404 346 408 328
-            C414 300 406 268 388 246
-            C372 228 350 218 332 214
-            C328 196 318 184 302 178
-            C286 172 250 174 214 186 Z
+            M155 250
+            C148 140 210 45 340 36
+            C475 27 548 130 542 250
+            C545 320 530 385 500 440
+            C470 490 415 525 340 528
+            C265 525 210 490 180 440
+            C150 385 158 320 155 250 Z
           "
         />
 
-        {/* Hands over the board for depth */}
-        <ellipse cx="168" cy="348" rx="20" ry="14" fill="#0d0c0a" />
-        <ellipse cx="352" cy="336" rx="18" ry="13" fill="#0d0c0a" />
+        {/* Hair / crown mass */}
+        <path
+          fill="#0d0c0a"
+          d="
+            M168 175
+            C185 70 255 22 340 18
+            C435 14 510 70 528 170
+            C480 100 400 78 340 82
+            C270 86 210 120 168 175 Z
+          "
+        />
 
-        {/* Clapperboard */}
-        <g transform="translate(168 288)">
-          <rect x="0" y="32" width="176" height="108" rx="5" fill="#10100e" />
-          <rect x="8" y="40" width="160" height="92" rx="3" fill="#1b1915" />
+        {/*
+          Eye band sits in the open-clapper gap.
+          Board hinge line ≈ y 318; open stick swings above; eyes at y 292.
+        */}
+        <g>
+          <ellipse cx="270" cy="292" rx="42" ry="26" fill="#efece4" />
+          <ellipse cx="410" cy="292" rx="42" ry="26" fill="#efece4" />
 
-          <line x1="22" y1="58" x2="154" y2="58" stroke="#efece4" strokeWidth="2.6" opacity="0.3" />
-          <line x1="22" y1="76" x2="138" y2="76" stroke="#efece4" strokeWidth="2.1" opacity="0.18" />
-          <line x1="22" y1="94" x2="148" y2="94" stroke="#efece4" strokeWidth="2.1" opacity="0.18" />
-          <line x1="22" y1="112" x2="112" y2="112" stroke="#efece4" strokeWidth="2.1" opacity="0.14" />
+          <ellipse cx="274" cy="294" rx="15" ry="18" fill="#0d0c0a" />
+          <ellipse cx="406" cy="294" rx="15" ry="18" fill="#0d0c0a" />
+          <circle cx="280" cy="286" r="4.5" fill="#efece4" opacity="0.6" />
+          <circle cx="412" cy="286" r="4.5" fill="#efece4" opacity="0.6" />
 
-          <rect x="0" y="32" width="10" height="108" rx="2" fill="#ff4d0d" opacity="0.9" />
+          {/* Blink lids — expand downward over eyes */}
+          <motion.ellipse
+            cx="270"
+            cy="278"
+            rx="46"
+            ry="28"
+            fill="#0d0c0a"
+            style={{ scaleY: lidScale, transformOrigin: "270px 268px" }}
+          />
+          <motion.ellipse
+            cx="410"
+            cy="278"
+            rx="46"
+            ry="28"
+            fill="#0d0c0a"
+            style={{ scaleY: lidScale, transformOrigin: "410px 268px" }}
+          />
+        </g>
 
-          {/* Hinged stick */}
-          <g transform="translate(14 32)">
+        {/* Brow ridges */}
+        <path
+          d="M225 268 C255 250 295 250 318 268"
+          fill="none"
+          stroke="#0d0c0a"
+          strokeWidth="12"
+          strokeLinecap="round"
+        />
+        <path
+          d="M362 268 C392 250 432 250 462 268"
+          fill="none"
+          stroke="#0d0c0a"
+          strokeWidth="12"
+          strokeLinecap="round"
+        />
+
+        {/* Hands holding board at face level */}
+        <path
+          fill="#0d0c0a"
+          d="
+            M78 360
+            C48 385 42 445 62 495
+            C78 525 120 532 148 508
+            C170 488 178 445 168 410
+            C156 368 118 345 78 360 Z
+          "
+        />
+        <path
+          fill="#0d0c0a"
+          d="
+            M602 355
+            C632 380 638 440 618 490
+            C602 520 560 527 532 503
+            C510 483 502 440 512 405
+            C524 363 562 340 602 355 Z
+          "
+        />
+
+        {/* Clapperboard covering lower face; gap reveals eyes */}
+        <g transform="translate(110 318)">
+          <rect x="0" y="40" width="460" height="250" rx="12" fill="#10100e" />
+          <rect x="16" y="56" width="428" height="218" rx="8" fill="#1a1814" />
+
+          <line x1="48" y1="100" x2="400" y2="100" stroke="#efece4" strokeWidth="5" opacity="0.28" />
+          <line x1="48" y1="145" x2="360" y2="145" stroke="#efece4" strokeWidth="4" opacity="0.16" />
+          <line x1="48" y1="190" x2="380" y2="190" stroke="#efece4" strokeWidth="4" opacity="0.16" />
+          <line x1="48" y1="235" x2="300" y2="235" stroke="#efece4" strokeWidth="4" opacity="0.12" />
+
+          <rect x="0" y="40" width="22" height="250" rx="5" fill="#ff4d0d" opacity="0.95" />
+
+          {/* Hinged stick — opens upward into the eye gap */}
+          <g transform="translate(26 40)">
             <motion.g style={{ rotate: stickAngle }}>
-              <g transform="translate(-14 -32)">
-                <rect x="0" y="0" width="176" height="34" rx="4" fill="#0d0c0a" />
+              <g transform="translate(-26 -40)">
+                <rect x="0" y="0" width="460" height="44" rx="8" fill="#0d0c0a" />
                 <path
-                  d="M8 2 L32 2 L48 32 L24 32 Z
-                     M50 2 L74 2 L90 32 L66 32 Z
-                     M92 2 L116 2 L132 32 L108 32 Z
-                     M134 2 L158 2 L172 32 L150 32 Z"
+                  d="M18 3 L68 3 L92 41 L42 41 Z
+                     M106 3 L156 3 L180 41 L130 41 Z
+                     M194 3 L244 3 L268 41 L218 41 Z
+                     M282 3 L332 3 L356 41 L306 41 Z
+                     M370 3 L420 3 L442 41 L392 41 Z"
                   fill="#efece4"
-                  opacity="0.94"
+                  opacity="0.95"
                 />
                 <path
-                  d="M30 2 L54 2 L70 32 L46 32 Z
-                     M72 2 L96 2 L112 32 L88 32 Z
-                     M114 2 L138 2 L154 32 L130 32 Z"
+                  d="M62 3 L112 3 L136 41 L86 41 Z
+                     M150 3 L200 3 L224 41 L174 41 Z
+                     M238 3 L288 3 L312 41 L262 41 Z
+                     M326 3 L376 3 L400 41 L350 41 Z"
                   fill="#0d0c0a"
                 />
               </g>
             </motion.g>
-            <circle cx="0" cy="0" r="6.5" fill="#2c2822" />
-            <circle cx="0" cy="0" r="2.5" fill="#efece4" opacity="0.55" />
+            <circle cx="0" cy="0" r="11" fill="#2a2620" />
+            <circle cx="0" cy="0" r="4.5" fill="#efece4" opacity="0.55" />
           </g>
         </g>
 
-        {/* Foreground fingers on stick edge */}
+        {/* Fingers over board edges */}
+        <ellipse cx="145" cy="500" rx="32" ry="22" fill="#0d0c0a" />
+        <ellipse cx="535" cy="495" rx="30" ry="20" fill="#0d0c0a" />
         <path
-          d="M156 338 C150 346 148 356 154 360 C162 352 168 344 170 336 Z"
+          d="M120 470 C108 490 106 515 122 528 C142 508 155 488 160 470 Z"
           fill="#0d0c0a"
         />
         <path
-          d="M348 328 C356 334 360 344 354 350 C346 342 340 334 338 326 Z"
+          d="M560 465 C574 485 578 510 560 522 C542 502 528 482 524 465 Z"
           fill="#0d0c0a"
         />
       </motion.svg>

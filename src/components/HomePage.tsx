@@ -58,7 +58,7 @@ export default function HomePage() {
           </div>
 
           <motion.div
-            className="order-1 lg:order-2"
+            className="order-1 relative lg:order-2 lg:justify-self-end lg:w-[min(100%,34rem)] xl:w-[min(100%,38rem)]"
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
