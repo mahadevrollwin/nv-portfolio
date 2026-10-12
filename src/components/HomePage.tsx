@@ -61,7 +61,7 @@ export default function HomePage() {
             </motion.div>
           </div>
 
-          <div className="order-1 relative lg:order-2 lg:justify-self-end lg:w-[min(100%,38rem)] xl:w-[min(100%,42rem)]">
+          <div className="order-1 relative w-full lg:order-2 lg:justify-self-end lg:w-[min(100%,42rem)] xl:w-[min(100%,48rem)]">
             <HeroVisual scrollTargetRef={heroRef} />
           </div>
         </div>
