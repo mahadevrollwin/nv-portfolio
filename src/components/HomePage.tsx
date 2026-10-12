@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   capabilities,
@@ -16,11 +16,15 @@ import Reveal from "@/components/Reveal";
 export default function HomePage() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const testimonial = testimonials[activeTestimonial];
+  const heroRef = useRef<HTMLElement>(null);
 
   return (
     <main>
       {/* Hero — one composition */}
-      <section className="relative min-h-[100svh] overflow-hidden px-6 pb-16 pt-28 md:px-10 md:pt-32">
+      <section
+        ref={heroRef}
+        className="relative min-h-[100svh] overflow-hidden px-6 pb-16 pt-28 md:px-10 md:pt-32"
+      >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(255,77,13,0.08),transparent_45%),radial-gradient(ellipse_at_20%_80%,rgba(18,17,15,0.04),transparent_40%)]" />
 
         <div className="relative mx-auto grid min-h-[calc(100svh-9rem)] max-w-6xl items-end gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
@@ -57,14 +61,9 @@ export default function HomePage() {
             </motion.div>
           </div>
 
-          <motion.div
-            className="order-1 relative lg:order-2 lg:justify-self-end lg:w-[min(100%,34rem)] xl:w-[min(100%,38rem)]"
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <HeroVisual />
-          </motion.div>
+          <div className="order-1 relative lg:order-2 lg:justify-self-end lg:w-[min(100%,38rem)] xl:w-[min(100%,42rem)]">
+            <HeroVisual scrollTargetRef={heroRef} />
+          </div>
         </div>
       </section>
 
