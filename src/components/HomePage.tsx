@@ -27,7 +27,7 @@ export default function HomePage() {
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(255,77,13,0.08),transparent_45%),radial-gradient(ellipse_at_20%_80%,rgba(18,17,15,0.04),transparent_40%)]" />
 
-        <div className="relative mx-auto grid min-h-[calc(100svh-9rem)] max-w-6xl items-end gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div className="relative mx-auto grid min-h-[calc(100svh-9rem)] max-w-7xl items-end gap-8 lg:grid-cols-[0.95fr_1.15fr] lg:items-center lg:gap-6">
           <div className="order-2 z-10 max-w-xl lg:order-1 lg:pb-8">
             <motion.h1
               className="font-display text-[clamp(2.4rem,6vw,4.6rem)] font-semibold leading-[1.02] tracking-tight"
@@ -61,7 +61,7 @@ export default function HomePage() {
             </motion.div>
           </div>
 
-          <div className="order-1 relative w-full lg:order-2 lg:justify-self-end lg:w-[min(100%,42rem)] xl:w-[min(100%,48rem)]">
+          <div className="order-1 relative w-full lg:order-2 lg:justify-self-end lg:w-full">
             <HeroVisual scrollTargetRef={heroRef} />
           </div>
         </div>

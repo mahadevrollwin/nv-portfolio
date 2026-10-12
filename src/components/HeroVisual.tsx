@@ -46,7 +46,7 @@ export default function HeroVisual({ scrollTargetRef: _scrollTargetRef }: HeroVi
   return (
     <div
       ref={rootRef}
-      className="relative mx-auto aspect-video h-auto w-full max-w-2xl overflow-visible md:max-w-none"
+      className="relative mx-auto aspect-[1024/752] h-auto w-full max-w-3xl overflow-visible md:max-w-none"
       style={{ backgroundColor: SITE_BG }}
       aria-hidden="true"
     >
