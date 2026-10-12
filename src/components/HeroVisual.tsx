@@ -181,8 +181,8 @@ export default function HeroVisual({ scrollTargetRef }: HeroVisualProps) {
         {/* Hidden decoder — canvas paints frames (avoids transform/video paint bugs) */}
         <video
           ref={videoRef}
-          src="/hero-sunglasses.mp4?v=4"
-          poster="/hero-sunglasses-poster.png?v=4"
+          src="/hero-sunglasses.mp4?v=5"
+          poster="/hero-sunglasses-poster.png?v=5"
           muted
           playsInline
           preload="auto"
