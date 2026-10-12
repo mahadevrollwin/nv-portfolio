@@ -4,7 +4,7 @@ export const site = {
   title: "NV — Product Designer & Full-Stack Engineer",
   description:
     "I design and engineer digital platforms that feel intentional, move markets, and scale with ambition.",
-  url: "https://nv-portfolio.vercel.app",
+  url: "https://nv-portfolio-ruby.vercel.app",
   email: "hello@mahadev.dev",
   location: "India",
   github: "https://github.com/mahadevrollwin",
