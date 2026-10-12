@@ -55,7 +55,7 @@ export const projects = [
       "A refined digital identity and web experience for a creative studio operating across markets — built to feel editorial, cinematic, and conversion-ready.",
     tags: ["Brand Site", "Next.js", "Motion"],
     year: "2025",
-    accent: "#1B4D3E",
+    accent: "#1f6b4f",
     href: "https://github.com/mahadevrollwin/Inkspilled-AE",
   },
   {
@@ -66,7 +66,7 @@ export const projects = [
       "A high-velocity product surface for live play, account flows, and real-time engagement — engineered for speed, clarity, and trust.",
     tags: ["Product", "TypeScript", "Realtime"],
     year: "2025",
-    accent: "#0B3D91",
+    accent: "#1a3a6e",
     href: "https://github.com/mahadevrollwin/fairplay",
   },
   {
@@ -77,7 +77,7 @@ export const projects = [
       "A tightly scoped product interface focused on clarity under pressure — markets, balances, and action states rendered with zero noise.",
     tags: ["Web App", "UX Systems", "Performance"],
     year: "2025",
-    accent: "#7A1F1F",
+    accent: "#8e1528",
     href: "https://github.com/mahadevrollwin/mahadevbook",
   },
   {
@@ -88,7 +88,7 @@ export const projects = [
       "A product shell designed around fast decision-making — structured information hierarchy, responsive layouts, and durable component patterns.",
     tags: ["Frontend", "Design System", "TypeScript"],
     year: "2024",
-    accent: "#3D2B1F",
+    accent: "#5c3a14",
     href: "https://github.com/mahadevrollwin/betpro",
   },
 ];

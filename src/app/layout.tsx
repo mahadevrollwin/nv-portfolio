@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { Outfit, Syne, JetBrains_Mono } from "next/font/google";
+import { Cinzel, Manrope, JetBrains_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import { site } from "@/lib/content";
 import "./globals.css";
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
   display: "swap",
 });
 
-const syne = Syne({
-  variable: "--font-syne",
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
   subsets: ["latin"],
   display: "swap",
 });
@@ -67,13 +67,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${syne.variable} ${jetbrains.variable} h-full antialiased`}
+      className={`${manrope.variable} ${cinzel.variable} ${jetbrains.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-bg text-ink">
+      <body className="relative flex min-h-full flex-col bg-bg text-ink">
         <JsonLd />
         <div className="noise" aria-hidden />
+        <div className="vignette" aria-hidden />
         <Navbar />
-        <div className="flex-1">{children}</div>
+        <div className="relative z-10 flex-1">{children}</div>
         <Footer />
       </body>
     </html>
