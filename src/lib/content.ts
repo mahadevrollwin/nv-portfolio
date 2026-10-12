@@ -1,7 +1,7 @@
 export const site = {
-  name: "NV",
+  name: "NVGraphy",
   fullName: "Mahadev",
-  title: "NV — Product Designer & Full-Stack Engineer",
+  title: "NVGraphy — Product Designer & Full-Stack Engineer",
   description:
     "I design and engineer digital platforms that feel intentional, move markets, and scale with ambition.",
   url: "https://nv-portfolio-ruby.vercel.app",

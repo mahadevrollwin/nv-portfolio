@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   description: site.description,
   keywords: [
     "Mahadev",
-    "NV Portfolio",
+    "NVGraphy Portfolio",
     "product designer",
     "full-stack engineer",
     "Next.js developer",
