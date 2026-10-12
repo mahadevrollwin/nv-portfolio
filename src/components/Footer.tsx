@@ -1,40 +1,40 @@
 import Link from "next/link";
 import { site } from "@/lib/content";
-import Ornament from "@/components/Ornament";
 
 export default function Footer() {
   return (
-    <footer className="relative z-10 border-t border-line bg-bg-elevated/80 px-6 pb-10 pt-16 md:px-10">
-      <div className="pointer-events-none absolute inset-0 cinema-glow opacity-40" />
-      <div className="relative mx-auto grid max-w-6xl gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+    <footer className="border-t border-line bg-bg px-6 pb-10 pt-16 md:px-10">
+      <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <Ornament label="Finale" className="mb-5 max-w-xs" />
-          <p className="font-display text-4xl font-semibold tracking-tight text-gold-gradient md:text-5xl">
+          <p className="font-display text-4xl font-semibold tracking-tight md:text-5xl">
             Let&apos;s design what&apos;s next.
           </p>
           <p className="mt-4 max-w-md text-ink-soft">
             Available for select product builds, redesigns, and long-term partnerships.
           </p>
-          <Link href="/contact" className="btn-cinematic mt-8">
+          <Link
+            href="/contact"
+            className="mt-8 inline-flex items-center rounded-full bg-accent px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white transition hover:bg-accent-deep"
+          >
             Get in touch
           </Link>
         </div>
 
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">Navigate</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">Navigate</p>
           <ul className="mt-4 space-y-3 text-ink-soft">
             <li>
-              <Link href="/work" className="transition hover:text-accent">
+              <Link href="/work" className="hover:text-ink">
                 Work
               </Link>
             </li>
             <li>
-              <Link href="/about" className="transition hover:text-accent">
+              <Link href="/about" className="hover:text-ink">
                 About
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="transition hover:text-accent">
+              <Link href="/contact" className="hover:text-ink">
                 Contact
               </Link>
             </li>
@@ -42,20 +42,15 @@ export default function Footer() {
         </div>
 
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">Connect</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">Connect</p>
           <ul className="mt-4 space-y-3 text-ink-soft">
             <li>
-              <a
-                href={site.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition hover:text-accent"
-              >
+              <a href={site.github} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
                 GitHub
               </a>
             </li>
             <li>
-              <a href={`mailto:${site.email}`} className="transition hover:text-accent">
+              <a href={`mailto:${site.email}`} className="hover:text-ink">
                 {site.email}
               </a>
             </li>
@@ -64,11 +59,9 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="relative mx-auto mt-14 flex max-w-6xl flex-col gap-3 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-        <p>
-          © 2026 {site.fullName} / {site.name}
-        </p>
-        <p>A cinematic portfolio experience · Built with Next.js</p>
+      <div className="mx-auto mt-14 flex max-w-6xl flex-col gap-3 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+        <p>© 2026 {site.fullName} / {site.name}</p>
+        <p>Built with Next.js · Designed for clarity and speed</p>
       </div>
     </footer>
   );

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Ornament from "@/components/Ornament";
 import Reveal from "@/components/Reveal";
 import { projects } from "@/lib/content";
 
@@ -12,53 +11,45 @@ export const metadata: Metadata = {
 
 export default function WorkPage() {
   return (
-    <main className="relative px-6 pb-24 pt-32 md:px-10 md:pt-40">
-      <div className="cinema-glow pointer-events-none absolute inset-0 opacity-50" />
-      <div className="relative mx-auto max-w-6xl">
+    <main className="px-6 pb-24 pt-32 md:px-10 md:pt-40">
+      <div className="mx-auto max-w-6xl">
         <Reveal>
-          <Ornament label="Filmography" className="mb-5 max-w-xs justify-start" />
-          <h1 className="font-display mt-2 max-w-3xl text-[clamp(2.4rem,6vw,4.5rem)] font-semibold leading-[1.08] tracking-tight">
-            Projects that make an{" "}
-            <span className="text-gold-gradient">impact</span>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Work</p>
+          <h1 className="font-display mt-4 max-w-3xl text-[clamp(2.4rem,6vw,4.5rem)] font-semibold leading-[1.05] tracking-tight">
+            Projects that make an impact
           </h1>
           <p className="mt-6 max-w-xl text-lg text-ink-soft">
             From concept to launch — products, platforms, and experiences built to help teams move forward with clarity.
           </p>
         </Reveal>
 
-        <div className="mt-16 space-y-8">
+        <div className="mt-16 space-y-6">
           {projects.map((project, index) => (
             <Reveal key={project.slug} delay={index * 0.04}>
               <article
                 id={project.slug}
-                className="poster-frame scroll-mt-32 overflow-hidden bg-bg-poster/50"
+                className="scroll-mt-32 overflow-hidden border border-line bg-bg-elevated/40"
               >
                 <div
                   className="relative aspect-[21/9] min-h-[180px]"
-                  style={{
-                    background: `linear-gradient(135deg, ${project.accent} 0%, #12070f 90%)`,
-                  }}
+                  style={{ background: project.accent }}
                 >
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(232,184,74,0.2),transparent_50%)]" />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_30%,rgba(8,2,6,0.7)_100%)]" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.16),transparent_50%)]" />
                   <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4">
-                    <h2 className="font-display text-3xl font-semibold text-ink md:text-5xl">
+                    <h2 className="font-display text-3xl font-semibold text-white md:text-5xl">
                       {project.title}
                     </h2>
-                    <span className="text-sm uppercase tracking-wider text-accent">{project.year}</span>
+                    <span className="text-sm text-white/70">{project.year}</span>
                   </div>
                 </div>
                 <div className="grid gap-8 p-6 md:grid-cols-[1fr_1.2fr] md:p-10">
                   <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-crimson">
-                      Reel {String(index + 1).padStart(2, "0")}
-                    </p>
-                    <p className="mt-2 text-lg text-ink-soft">{project.subtitle}</p>
+                    <p className="text-lg text-ink-soft">{project.subtitle}</p>
                     <div className="mt-5 flex flex-wrap gap-2">
                       {project.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full border border-accent/25 bg-accent/5 px-3 py-1 text-xs uppercase tracking-wider text-muted"
+                          className="rounded-full border border-line px-3 py-1 text-xs uppercase tracking-wider text-muted"
                         >
                           {tag}
                         </span>
@@ -71,7 +62,7 @@ export default function WorkPage() {
                       href={project.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-accent transition hover:text-ink"
+                      className="mt-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-ink transition hover:text-accent"
                     >
                       View on GitHub →
                     </a>
@@ -83,11 +74,13 @@ export default function WorkPage() {
         </div>
 
         <Reveal className="mt-20 border-t border-line pt-12 text-center">
-          <Ornament label="Casting Call" className="mb-6" />
           <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
             Have a project in mind?
           </h2>
-          <Link href="/contact" className="btn-cinematic mt-8">
+          <Link
+            href="/contact"
+            className="mt-8 inline-flex items-center rounded-full bg-accent px-7 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:bg-accent-deep"
+          >
             Let&apos;s talk
           </Link>
         </Reveal>

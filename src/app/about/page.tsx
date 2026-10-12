@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Ornament from "@/components/Ornament";
 import Reveal from "@/components/Reveal";
 import { aboutStats, site } from "@/lib/content";
 
@@ -12,14 +11,12 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="relative px-6 pb-24 pt-32 md:px-10 md:pt-40">
-      <div className="cinema-glow pointer-events-none absolute inset-0 opacity-60" />
-      <div className="relative mx-auto max-w-6xl">
+    <main className="px-6 pb-24 pt-32 md:px-10 md:pt-40">
+      <div className="mx-auto max-w-6xl">
         <Reveal>
-          <Ornament label="About the Artist" className="mb-5 max-w-sm justify-start" />
-          <h1 className="font-display mt-2 max-w-3xl text-[clamp(2.4rem,6vw,4.5rem)] font-semibold leading-[1.08] tracking-tight">
-            {site.fullName} — shaping digital products with{" "}
-            <span className="text-gold-gradient">intention.</span>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">About</p>
+          <h1 className="font-display mt-4 max-w-3xl text-[clamp(2.4rem,6vw,4.5rem)] font-semibold leading-[1.05] tracking-tight">
+            {site.fullName} — shaping digital products with intention.
           </h1>
         </Reveal>
 
@@ -39,16 +36,13 @@ export default function AboutPage() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <div className="poster-frame bg-bg-poster/70 p-7">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">At a glance</p>
+            <div className="rounded-sm border border-line bg-bg-elevated/50 p-7">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">At a glance</p>
               <dl className="mt-6 space-y-5">
                 {aboutStats.map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="flex items-baseline justify-between gap-4 border-b border-line pb-4 last:border-0"
-                  >
+                  <div key={stat.label} className="flex items-baseline justify-between gap-4 border-b border-line pb-4 last:border-0">
                     <dt className="text-sm text-muted">{stat.label}</dt>
-                    <dd className="font-display text-2xl font-semibold text-gold-gradient">{stat.value}</dd>
+                    <dd className="font-display text-2xl font-semibold">{stat.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -56,7 +50,7 @@ export default function AboutPage() {
                 href={site.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-8 inline-flex text-sm font-semibold uppercase tracking-wider text-accent transition hover:text-ink"
+                className="mt-8 inline-flex text-sm font-semibold uppercase tracking-wider text-ink hover:text-accent"
               >
                 GitHub profile →
               </a>
@@ -80,12 +74,9 @@ export default function AboutPage() {
                 title: "Launch & refine",
                 copy: "Ship clean, measure what matters, and iterate with systems that stay maintainable.",
               },
-            ].map((step, i) => (
-              <div key={step.title} className="border-t border-accent/25 pt-6">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-crimson">
-                  Act {String(i + 1).padStart(2, "0")}
-                </p>
-                <h3 className="font-display mt-2 text-xl font-semibold text-gold-gradient">{step.title}</h3>
+            ].map((step) => (
+              <div key={step.title} className="border-t border-line pt-6">
+                <h3 className="font-display text-xl font-semibold">{step.title}</h3>
                 <p className="mt-3 text-ink-soft">{step.copy}</p>
               </div>
             ))}
@@ -93,7 +84,10 @@ export default function AboutPage() {
         </Reveal>
 
         <Reveal className="mt-20 text-center">
-          <Link href="/contact" className="btn-cinematic">
+          <Link
+            href="/contact"
+            className="inline-flex items-center rounded-full bg-accent px-7 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:bg-accent-deep"
+          >
             Work with me
           </Link>
         </Reveal>
