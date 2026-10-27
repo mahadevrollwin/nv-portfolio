@@ -1,95 +1,85 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
-import { aboutStats, site } from "@/lib/content";
+import { aboutPage, site } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "About",
-  description:
-    "Mahadev is a product designer and full-stack engineer building digital platforms with clarity, motion, and production-grade craft.",
+  description: aboutPage.intro,
 };
 
 export default function AboutPage() {
   return (
-    <main className="px-6 pb-24 pt-32 md:px-10 md:pt-40">
-      <div className="mx-auto max-w-6xl">
+    <main className="px-5 pb-20 pt-28 md:px-8 md:pb-28 md:pt-36">
+      <div className="mx-auto max-w-7xl">
         <Reveal>
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">About</p>
-          <h1 className="font-display mt-4 max-w-3xl text-[clamp(2.4rem,6vw,4.5rem)] font-semibold leading-[1.05] tracking-tight">
-            {site.fullName} — shaping digital products with intention.
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+            Independent · Founded on craft
+          </p>
+          <h1 className="mt-4 font-display text-[clamp(3rem,12vw,8rem)] uppercase leading-[0.88] tracking-tight text-accent">
+            {aboutPage.hero}
           </h1>
+          <p className="mt-6 max-w-2xl text-lg text-ink-soft md:text-xl">{aboutPage.intro}</p>
         </Reveal>
 
-        <div className="mt-14 grid gap-12 md:grid-cols-[1.2fr_0.8fr]">
-          <Reveal>
-            <div className="space-y-6 text-lg leading-relaxed text-ink-soft">
-              <p>
-                I&apos;m a product-minded engineer and designer who builds end-to-end web experiences — from first narrative and interaction model to production systems that hold up under real use.
+        <Reveal className="mt-20 md:mt-28" delay={0.05}>
+          <h2 className="max-w-4xl font-display text-[clamp(2rem,5vw,3.8rem)] uppercase leading-[0.95] tracking-tight">
+            {aboutPage.storyTitle}
+          </h2>
+          <div className="mt-8 grid gap-6 md:grid-cols-2 md:gap-10">
+            {aboutPage.story.map((para) => (
+              <p key={para.slice(0, 24)} className="text-base leading-relaxed text-ink-soft md:text-lg">
+                {para}
               </p>
-              <p>
-                My work spans brand sites, operator tools, and consumer platforms. Across every project, the goal is the same: reduce friction, raise clarity, and make the product feel inevitable.
-              </p>
-              <p>
-                I care about motion that communicates hierarchy, typography that carries brand, and engineering that stays fast as the product grows.
-              </p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.08}>
-            <div className="rounded-sm border border-line bg-bg-elevated/50 p-7">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">At a glance</p>
-              <dl className="mt-6 space-y-5">
-                {aboutStats.map((stat) => (
-                  <div key={stat.label} className="flex items-baseline justify-between gap-4 border-b border-line pb-4 last:border-0">
-                    <dt className="text-sm text-muted">{stat.label}</dt>
-                    <dd className="font-display text-2xl font-semibold">{stat.value}</dd>
-                  </div>
-                ))}
-              </dl>
-              <a
-                href={site.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-flex text-sm font-semibold uppercase tracking-wider text-ink hover:text-accent"
-              >
-                GitHub profile →
-              </a>
-            </div>
-          </Reveal>
-        </div>
-
-        <Reveal className="mt-20">
-          <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">How I work</h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                title: "Discover",
-                copy: "Clarify the audience, constraints, and commercial goal before a single layout is locked.",
-              },
-              {
-                title: "Design & build",
-                copy: "Prototype in the medium that ships — composition, motion, and code evolving together.",
-              },
-              {
-                title: "Launch & refine",
-                copy: "Ship clean, measure what matters, and iterate with systems that stay maintainable.",
-              },
-            ].map((step) => (
-              <div key={step.title} className="border-t border-line pt-6">
-                <h3 className="font-display text-xl font-semibold">{step.title}</h3>
-                <p className="mt-3 text-ink-soft">{step.copy}</p>
-              </div>
             ))}
           </div>
         </Reveal>
 
-        <Reveal className="mt-20 text-center">
-          <Link
-            href="/contact"
-            className="inline-flex items-center rounded-full bg-accent px-7 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:bg-accent-deep"
-          >
-            Work with me
+        <section className="mt-20 border-t border-line pt-16 md:mt-28 md:pt-20">
+          <Reveal>
+            <h2 className="font-display text-[clamp(2.2rem,6vw,4.5rem)] uppercase leading-[0.9] tracking-tight">
+              Behind the work
+            </h2>
+          </Reveal>
+          <div className="mt-10 grid gap-8 md:grid-cols-2">
+            {aboutPage.rules.map((rule, i) => (
+              <Reveal key={rule.n} delay={0.05 * i} className="rounded-[1.5rem] bg-bg-elevated p-6 md:p-8">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+                  The office rules {rule.n}
+                </p>
+                <h3 className="mt-4 font-display text-[clamp(1.5rem,3vw,2.2rem)] uppercase leading-[0.95] tracking-tight">
+                  {rule.title}
+                </h3>
+                <p className="mt-4 text-ink-soft">{rule.body}</p>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-20 md:mt-28">
+          <Reveal>
+            <h2 className="font-display text-[clamp(2.2rem,6vw,4.5rem)] uppercase leading-[0.9] tracking-tight">
+              We&apos;ve got range
+            </h2>
+          </Reveal>
+          <Reveal className="mt-8" delay={0.06}>
+            <div className="flex flex-wrap gap-2">
+              {aboutPage.range.map((item) => (
+                <span key={item} className="pill pill-light">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+        </section>
+
+        <Reveal className="mt-20 flex flex-col gap-4 sm:flex-row sm:items-center md:mt-28">
+          <Link href="/contact" className="pill pill-dark w-fit">
+            Let&apos;s Talk
           </Link>
+          <a href={`mailto:${site.email}`} className="text-sm text-muted hover:text-accent">
+            {site.email}
+          </a>
         </Reveal>
       </div>
     </main>

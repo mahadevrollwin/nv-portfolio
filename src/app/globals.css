@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #efece4;
-  --bg-elevated: #e5e0d5;
-  --ink: #12110f;
-  --ink-soft: #3a3832;
-  --muted: #8a867c;
-  --line: rgba(18, 17, 15, 0.1);
-  --accent: #ff4d0d;
-  --accent-deep: #d63d00;
-  --white: #fffdf8;
+  --bg: #f8eee8;
+  --bg-elevated: #fdf8f5;
+  --ink: #1a1a1a;
+  --ink-soft: #3d3d3d;
+  --muted: #6b6560;
+  --line: rgba(26, 26, 26, 0.12);
+  --accent: #ff5400;
+  --accent-deep: #e04800;
+  --black: #0a0a0a;
+  --white: #fdf8f5;
 }
 
 @theme inline {
@@ -21,10 +22,10 @@
   --color-line: var(--line);
   --color-accent: var(--accent);
   --color-accent-deep: var(--accent-deep);
+  --color-black: var(--black);
   --color-white: var(--white);
-  --font-sans: var(--font-outfit);
-  --font-display: var(--font-syne);
-  --font-mono: var(--font-mono);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
 }
 
 * {
@@ -38,36 +39,114 @@ html {
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--accent) 35%, transparent);
+  background: color-mix(in oklab, var(--accent) 40%, transparent);
   color: var(--ink);
 }
 
 .font-display {
-  font-family: var(--font-syne), system-ui, sans-serif;
+  font-family: var(--font-display), system-ui, sans-serif;
 }
 
-.noise {
-  position: fixed;
-  inset: 0;
+@layer components {
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 0.65rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+  }
+
+  .pill:hover {
+    transform: translateY(-1px);
+  }
+
+  .pill-light {
+    background: var(--bg-elevated);
+    color: var(--ink);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+  }
+
+  .pill-dark {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .pill-dark:hover {
+    background: #222;
+  }
+}
+
+.display-xl {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.88;
+}
+
+.track-wide {
+  letter-spacing: 0.22em;
+}
+
+.orange-rings {
   pointer-events: none;
-  z-index: 50;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  position: absolute;
+  inset: auto auto -10% -18%;
+  width: min(70vw, 640px);
+  height: min(70vw, 640px);
+  border: 14px solid var(--accent);
+  border-radius: 50%;
+  opacity: 0.95;
 }
 
-.marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 42s linear infinite;
+.orange-rings::before,
+.orange-rings::after {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border: 14px solid var(--accent);
+  border-radius: 50%;
 }
 
-.marquee:hover {
-  animation-play-state: paused;
+.orange-rings::after {
+  inset: 36%;
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-6deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-6deg);
+  }
+}
+
+@keyframes float-y-alt {
+  0%,
+  100% {
+    transform: translateY(0) rotate(8deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(8deg);
+  }
+}
+
+.tag-float {
+  animation: float-y 6s ease-in-out infinite;
+}
+
+.tag-float-alt {
+  animation: float-y-alt 7s ease-in-out infinite;
 }
 
 @keyframes marquee {
@@ -79,34 +158,14 @@ body {
   }
 }
 
-@keyframes float-y {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 36s linear infinite;
 }
 
-@keyframes pulse-glow {
-  0%,
-  100% {
-    opacity: 0.55;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.9;
-    transform: scale(1.04);
-  }
-}
-
-.hero-float {
-  animation: float-y 7s ease-in-out infinite;
-}
-
-.hero-glow {
-  animation: pulse-glow 4.5s ease-in-out infinite;
+.marquee:hover {
+  animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -115,8 +174,8 @@ body {
   }
 
   .marquee,
-  .hero-float,
-  .hero-glow {
+  .tag-float,
+  .tag-float-alt {
     animation: none;
   }
 }

@@ -1,67 +1,50 @@
 import Link from "next/link";
 import { site } from "@/lib/content";
 
+function spaced(label: string) {
+  return label.split("").join(" ");
+}
+
 export default function Footer() {
   return (
-    <footer className="border-t border-line bg-bg px-6 pb-10 pt-16 md:px-10">
-      <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
-        <div>
-          <p className="font-display text-4xl font-semibold tracking-tight md:text-5xl">
-            Let&apos;s design what&apos;s next.
-          </p>
-          <p className="mt-4 max-w-md text-ink-soft">
-            Available for select product builds, redesigns, and long-term partnerships.
-          </p>
-          <Link
-            href="/contact"
-            className="mt-8 inline-flex items-center rounded-full bg-accent px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white transition hover:bg-accent-deep"
-          >
-            Get in touch
+    <footer className="bg-black px-5 pb-10 pt-16 text-white md:px-8 md:pt-20">
+      <div className="mx-auto max-w-7xl">
+        <p className="font-display text-[clamp(2.8rem,10vw,7rem)] uppercase leading-[0.88] tracking-tight text-bg">
+          Okay, that&apos;s enough website
+        </p>
+        <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-sm text-white/60">Want to start a project — or just say hello?</p>
+            <a
+              href={`mailto:${site.email}`}
+              className="mt-3 inline-block font-display text-2xl uppercase tracking-tight text-accent sm:text-3xl"
+            >
+              {site.email}
+            </a>
+          </div>
+          <Link href="/contact" className="pill pill-light w-fit text-ink">
+            Let&apos;s Talk
           </Link>
         </div>
 
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">Navigate</p>
-          <ul className="mt-4 space-y-3 text-ink-soft">
-            <li>
-              <Link href="/work" className="hover:text-ink">
-                Work
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className="hover:text-ink">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className="hover:text-ink">
-                Contact
-              </Link>
-            </li>
-          </ul>
+        <div className="mt-16 flex flex-wrap gap-x-8 gap-y-3 border-t border-white/15 pt-8 text-xs uppercase text-white/70">
+          <Link href="/work" className="hover:text-white">
+            {spaced("Work")}
+          </Link>
+          <Link href="/about" className="hover:text-white">
+            {spaced("About us")}
+          </Link>
+          <a href={site.github} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+            {spaced("GitHub")}
+          </a>
+          <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+            {spaced("LinkedIn")}
+          </a>
         </div>
 
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">Connect</p>
-          <ul className="mt-4 space-y-3 text-ink-soft">
-            <li>
-              <a href={site.github} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href={`mailto:${site.email}`} className="hover:text-ink">
-                {site.email}
-              </a>
-            </li>
-            <li>{site.location}</li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="mx-auto mt-14 flex max-w-6xl flex-col gap-3 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-        <p>© 2026 {site.fullName} / {site.name}</p>
-        <p>Built with Next.js · Designed for clarity and speed</p>
+        <p className="mt-8 text-xs text-white/40">
+          © 2026 {site.fullName} / {site.name} · Handmade by humans. Well, digitally.
+        </p>
       </div>
     </footer>
   );

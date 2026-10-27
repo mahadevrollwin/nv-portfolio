@@ -9,14 +9,6 @@ import { navLinks, site } from "@/lib/content";
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     setOpen(false);
@@ -29,119 +21,82 @@ export default function Navbar() {
     };
   }, [open]);
 
+  const primary = navLinks.slice(0, 2);
+  const talk = navLinks[2];
+
   return (
     <>
-      <header className="pointer-events-none fixed inset-x-0 top-0 z-40 flex justify-center px-4 pt-4 md:px-6 md:pt-5">
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-4 pt-4 md:px-6 md:pt-5">
         <nav
-          className={`pointer-events-auto flex w-full max-w-5xl items-center justify-between gap-3 rounded-full px-4 py-2.5 transition-all duration-300 md:px-6 ${
-            scrolled || open
-              ? "bg-[rgba(34,30,24,0.82)] text-white shadow-lg shadow-black/10 backdrop-blur-xl"
-              : "bg-[rgba(34,30,24,0.72)] text-white backdrop-blur-xl"
-          }`}
+          className="pointer-events-auto mx-auto flex max-w-7xl items-center justify-between gap-3"
           aria-label="Primary"
         >
-          <div className="hidden flex-1 items-center gap-6 md:flex">
-            {navLinks.slice(0, 2).map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-[13px] tracking-wide text-white/85 transition hover:text-white"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-
-          <Link
-            href="/"
-            className="font-display absolute left-1/2 -translate-x-1/2 text-[22px] font-bold tracking-tight md:static md:translate-x-0"
-          >
-            {site.name}
-          </Link>
-
-          <div className="hidden flex-1 items-center justify-end gap-6 md:flex">
-            {navLinks.slice(2).map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-[13px] tracking-wide text-white/85 transition hover:text-white"
-              >
+          <div className="flex items-center gap-2">
+            {primary.map((link) => (
+              <Link key={link.href} href={link.href} className="pill pill-light hidden sm:inline-flex">
                 {link.label}
               </Link>
             ))}
             <button
               type="button"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20"
+              className="pill pill-light sm:hidden"
               aria-label="Open menu"
               onClick={() => setOpen(true)}
             >
-              <span className="flex flex-col gap-1.5">
-                <span className="block h-px w-4 bg-white" />
-                <span className="block h-px w-4 bg-white" />
-                <span className="block h-px w-4 bg-white" />
-              </span>
+              Menu
             </button>
           </div>
 
-          <button
-            type="button"
-            className="ml-auto flex h-9 w-9 items-center justify-center rounded-full border border-white/20 md:hidden"
-            aria-label="Open menu"
-            onClick={() => setOpen(true)}
+          <Link
+            href="/"
+            className="font-display text-[clamp(1.6rem,3vw,2.2rem)] uppercase tracking-tight text-accent"
           >
-            <span className="flex flex-col gap-1.5">
-              <span className="block h-px w-4 bg-white" />
-              <span className="block h-px w-4 bg-white" />
-              <span className="block h-px w-4 bg-white" />
-            </span>
-          </button>
+            {site.name}
+          </Link>
+
+          <Link href={talk.href} className="pill pill-dark">
+            {talk.label}
+          </Link>
         </nav>
       </header>
 
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-0 z-50 bg-[rgba(18,17,15,0.96)] text-white"
+            className="fixed inset-0 z-[60] bg-black text-white"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <div className="flex items-center justify-between px-6 pt-6">
-              <Link href="/" className="font-display text-2xl font-bold" onClick={() => setOpen(false)}>
+            <div className="flex items-center justify-between px-5 pt-5">
+              <Link
+                href="/"
+                className="font-display text-2xl uppercase text-accent"
+                onClick={() => setOpen(false)}
+              >
                 {site.name}
               </Link>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                className="rounded-full border border-white/25 px-4 py-2 text-sm"
-                aria-label="Close menu"
-              >
+              <button type="button" className="pill pill-light" onClick={() => setOpen(false)}>
                 Close
               </button>
             </div>
-            <div className="flex h-[calc(100%-88px)] flex-col justify-center gap-6 px-8">
+            <div className="flex h-[calc(100%-88px)] flex-col justify-center gap-5 px-6">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.href}
-                  initial={{ y: 24, opacity: 0 }}
+                  initial={{ y: 28, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.05 * i }}
+                  transition={{ delay: 0.06 * i }}
                 >
                   <Link
                     href={link.href}
-                    className="font-display text-5xl font-semibold tracking-tight sm:text-6xl"
+                    className="font-display text-5xl uppercase tracking-tight text-white sm:text-6xl"
                     onClick={() => setOpen(false)}
                   >
                     {link.label}
                   </Link>
                 </motion.div>
               ))}
-              <a
-                href={`mailto:${site.email}`}
-                className="mt-8 inline-flex w-fit items-center rounded-full bg-accent px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white"
-              >
-                Book a call
-              </a>
             </div>
           </motion.div>
         )}

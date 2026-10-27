@@ -1,25 +1,21 @@
 import type { Metadata } from "next";
-import { Outfit, Syne, JetBrains_Mono } from "next/font/google";
+import { Anton, DM_Sans } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import CustomCursor from "@/components/CustomCursor";
 import { site } from "@/lib/content";
 import "./globals.css";
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+const display = Anton({
+  variable: "--font-display",
   subsets: ["latin"],
+  weight: "400",
   display: "swap",
 });
 
-const syne = Syne({
-  variable: "--font-syne",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const jetbrains = JetBrains_Mono({
-  variable: "--font-mono",
+const body = DM_Sans({
+  variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
 });
@@ -33,11 +29,11 @@ export const metadata: Metadata = {
   description: site.description,
   keywords: [
     "Mahadev",
-    "NVGraphy Portfolio",
+    "NVGraphy",
     "product designer",
     "full-stack engineer",
+    "boutique design",
     "Next.js developer",
-    "digital products",
   ],
   authors: [{ name: site.fullName }],
   creator: site.fullName,
@@ -67,11 +63,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${syne.variable} ${jetbrains.variable} h-full antialiased`}
+      className={`${display.variable} ${body.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-bg text-ink">
+      <body className="flex min-h-full flex-col bg-bg text-ink">
         <JsonLd />
-        <div className="noise" aria-hidden />
+        <CustomCursor />
         <Navbar />
         <div className="flex-1">{children}</div>
         <Footer />

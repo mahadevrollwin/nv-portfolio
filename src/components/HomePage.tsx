@@ -1,208 +1,207 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  capabilities,
+  aboutBlurb,
+  heroTags,
   projects,
+  services,
   site,
   testimonials,
 } from "@/lib/content";
-import HeroVisual from "@/components/HeroVisual";
+import Faq from "@/components/Faq";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
 
 export default function HomePage() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const testimonial = testimonials[activeTestimonial];
-  const heroRef = useRef<HTMLElement>(null);
+  const t = testimonials[activeTestimonial];
 
   return (
     <main>
-      {/* Hero — one composition */}
-      <section
-        ref={heroRef}
-        className="relative min-h-[100svh] overflow-hidden px-6 pb-16 pt-28 md:px-10 md:pt-32"
-      >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(255,77,13,0.08),transparent_45%),radial-gradient(ellipse_at_20%_80%,rgba(18,17,15,0.04),transparent_40%)]" />
-
-        <div className="relative mx-auto grid min-h-[calc(100svh-9rem)] max-w-7xl items-end gap-8 lg:grid-cols-[0.95fr_1.15fr] lg:items-center lg:gap-6">
-          <div className="order-2 z-10 max-w-xl lg:order-1 lg:pb-8">
+      {/* Hero */}
+      <section className="relative overflow-hidden px-5 pb-16 pt-28 md:px-8 md:pb-24 md:pt-32">
+        <div className="orange-rings" aria-hidden />
+        <div className="relative mx-auto grid max-w-7xl items-end gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-6">
+          <div className="relative z-10">
             <motion.h1
-              className="font-display text-[clamp(2.4rem,6vw,4.6rem)] font-semibold leading-[1.02] tracking-tight"
-              initial={{ opacity: 0, y: 24 }}
+              className="display-xl text-[clamp(3.4rem,14vw,9.5rem)] text-accent"
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
             >
-              Digital products for{" "}
-              <span className="text-muted">ambitious builders.</span>
+              {site.tagline}
             </motion.h1>
-            <motion.p
-              className="mt-5 max-w-md text-sm uppercase tracking-[0.16em] text-ink-soft"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15, duration: 0.7 }}
-            >
-              I collaborate with founders and teams to shape interfaces, platforms, and brand experiences that move forward.
-            </motion.p>
+
             <motion.div
-              className="mt-8"
+              className="mt-6 flex flex-wrap gap-2"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.28, duration: 0.7 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
             >
-              <Link
-                href="/contact"
-                className="inline-flex items-center rounded-full bg-accent px-7 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:bg-accent-deep"
-              >
-                Book a call
-              </Link>
+              {heroTags.map((tag, i) => (
+                <span
+                  key={tag}
+                  className={`pill bg-black px-4 py-2 text-xs font-medium text-white ${
+                    i === 0 ? "tag-float" : i === 1 ? "tag-float-alt" : ""
+                  }`}
+                >
+                  {tag}
+                </span>
+              ))}
             </motion.div>
           </div>
 
-          <div className="order-1 relative w-full lg:order-2 lg:justify-self-end lg:w-full">
-            <HeroVisual scrollTargetRef={heroRef} />
-          </div>
+          <motion.div
+            className="relative z-10 mx-auto w-full max-w-md lg:max-w-none"
+            initial={{ opacity: 0, scale: 0.86 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.15, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/hero-sunglasses.png"
+              alt=""
+              width={1024}
+              height={752}
+              className="h-auto w-full object-contain"
+              decoding="async"
+              fetchPriority="high"
+              draggable={false}
+            />
+          </motion.div>
         </div>
       </section>
 
-      {/* Manifesto */}
-      <section className="border-y border-line px-6 py-24 md:px-10 md:py-32">
-        <Reveal className="mx-auto max-w-4xl text-center">
-          <h2 className="font-display text-[clamp(1.9rem,4.5vw,3.4rem)] font-semibold leading-tight tracking-tight">
-            I design for the future — where strategy, experience, and technology shape what&apos;s next.
-          </h2>
-          <p className="mx-auto mt-8 max-w-2xl text-lg text-ink-soft">
-            I don&apos;t just ship pages. I engineer digital experiences and product systems that solve real problems and scale with the business behind them.
+      {/* About blurb */}
+      <section className="border-y border-line px-5 py-16 md:px-8 md:py-24">
+        <Reveal className="mx-auto max-w-7xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+            {aboutBlurb.eyebrow}
           </p>
+          <p className="mt-6 max-w-4xl text-[clamp(1.35rem,3vw,2.15rem)] leading-[1.25] text-ink">
+            {aboutBlurb.body}
+          </p>
+          <div className="mt-8 flex flex-wrap gap-2">
+            {aboutBlurb.pills.map((pill) => (
+              <span key={pill} className="pill pill-light text-sm">
+                {pill}
+              </span>
+            ))}
+          </div>
         </Reveal>
       </section>
 
-      {/* Capabilities marquee */}
-      <section id="capabilities" className="overflow-hidden py-16 md:py-20">
-        <Reveal className="mb-10 px-6 md:px-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Capabilities</p>
-        </Reveal>
-        <div className="marquee gap-5 pr-5">
-          {[...capabilities, ...capabilities].map((cap, i) => (
-            <div
-              key={`${cap.title}-${i}`}
-              className="w-[280px] shrink-0 rounded-sm border border-line bg-bg-elevated/60 p-7 md:w-[320px]"
-            >
-              <h3 className="font-display text-2xl font-semibold tracking-tight">{cap.title}</h3>
-              <ul className="mt-5 space-y-2 text-sm uppercase tracking-wider text-muted">
-                {cap.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+      {/* Selected works */}
+      <section className="px-5 py-16 md:px-8 md:py-24">
+        <div className="mx-auto max-w-7xl">
+          <Reveal>
+            <h2 className="font-display text-[clamp(2.6rem,8vw,6rem)] uppercase leading-[0.9] tracking-tight">
+              Selected Works
+            </h2>
+          </Reveal>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:gap-6">
+            {projects.slice(0, 4).map((project, i) => (
+              <Reveal key={project.slug} delay={0.05 * i}>
+                <ProjectCard project={project} index={i} />
+              </Reveal>
+            ))}
+          </div>
+          <Reveal className="mt-12 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <p className="max-w-md font-display text-2xl uppercase leading-tight tracking-tight md:text-3xl">
+              We could keep going, but there&apos;s a whole page for that.
+            </p>
+            <Link href="/work" className="pill pill-dark">
+              See all projects
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section id="capabilities" className="border-y border-line bg-bg-elevated px-5 py-16 md:px-8 md:py-24">
+        <div className="mx-auto max-w-7xl">
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+              The plot thickens · Very convenient
+            </p>
+            <h2 className="mt-4 font-display text-[clamp(2.6rem,8vw,6rem)] uppercase leading-[0.9] tracking-tight">
+              This is our thing
+            </h2>
+          </Reveal>
+          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-14">
+            {services.map((service, i) => (
+              <Reveal key={service.title} delay={0.04 * i}>
+                <h3 className="font-display whitespace-pre-line text-[clamp(1.8rem,3.5vw,2.6rem)] uppercase leading-[0.95] tracking-tight text-accent">
+                  {service.title}
+                </h3>
+                <p className="mt-4 max-w-sm text-ink-soft">{service.copy}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="px-6 py-24 md:px-10 md:py-28">
-        <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[0.9fr_1.4fr] md:items-end">
+      <section className="px-5 py-16 md:px-8 md:py-24">
+        <div className="mx-auto max-w-7xl">
           <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-              Building with teams worldwide
-            </p>
-            <h2 className="font-display mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
-              Trusted by product teams
+            <h2 className="font-display text-[clamp(2.4rem,7vw,5.5rem)] uppercase leading-[0.9] tracking-tight">
+              Apparently, they like us
             </h2>
-            <div className="mt-8 flex gap-3">
-              {testimonials.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => setActiveTestimonial(i)}
-                  className={`h-2.5 w-2.5 rounded-full transition ${
-                    i === activeTestimonial ? "bg-accent" : "bg-ink/20"
-                  }`}
-                  aria-label={`Show testimonial ${i + 1}`}
-                />
-              ))}
-            </div>
           </Reveal>
 
-          <Reveal delay={0.1}>
+          <div className="mt-10 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+            <div className="flex flex-wrap gap-2">
+              {testimonials.map((item, i) => (
+                <button
+                  key={item.author}
+                  type="button"
+                  onClick={() => setActiveTestimonial(i)}
+                  className={`pill text-left text-sm ${
+                    i === activeTestimonial ? "pill-dark" : "pill-light"
+                  }`}
+                >
+                  {item.highlight}
+                </button>
+              ))}
+            </div>
+
             <AnimatePresence mode="wait">
               <motion.blockquote
-                key={activeTestimonial}
-                initial={{ opacity: 0, y: 12 }}
+                key={t.author}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
+                exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.35 }}
-                className="border-l-2 border-accent pl-6 md:pl-8"
+                className="max-w-2xl"
               >
-                <p className="font-display text-2xl font-medium leading-snug tracking-tight md:text-3xl">
-                  “{testimonial.quote}”
+                <p className="text-[clamp(1.25rem,2.6vw,1.85rem)] leading-snug text-ink">
+                  “{t.quote}”
                 </p>
                 <footer className="mt-6 text-sm text-muted">
-                  {testimonial.author} — {testimonial.role}
-                  <span className="ml-4 text-ink">
-                    {String(activeTestimonial + 1).padStart(2, "0")} / {String(testimonials.length).padStart(2, "0")}
-                  </span>
+                  <span className="font-medium text-ink">{t.author}</span> — {t.role}
                 </footer>
               </motion.blockquote>
             </AnimatePresence>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* Selected work */}
-      <section className="px-6 pb-8 md:px-10">
-        <div className="mx-auto max-w-6xl">
-          <Reveal className="mb-4 flex items-end justify-between gap-6">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Selected work</p>
-              <h2 className="font-display mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
-                Projects that make an impact
-              </h2>
-            </div>
-            <Link
-              href="/work"
-              className="hidden text-sm font-semibold uppercase tracking-wider text-ink hover:text-accent sm:inline-flex"
-            >
-              All work →
-            </Link>
-          </Reveal>
-
-          {projects.slice(0, 2).map((project, index) => (
-            <Reveal key={project.slug} delay={index * 0.05}>
-              <ProjectCard project={project} index={index} />
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* Mid CTA */}
-      <section className="px-6 py-24 md:px-10 md:py-32">
-        <Reveal className="mx-auto max-w-4xl text-center">
-          <h2 className="font-display text-[clamp(2rem,5vw,3.8rem)] font-semibold tracking-tight">
-            Let&apos;s build your next experience
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl text-lg text-ink-soft">
-            From concept to launch, I bring strategy, design, and engineering together into cohesive, future-ready products.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/contact"
-              className="inline-flex items-center rounded-full bg-accent px-7 py-3.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:bg-accent-deep"
-            >
-              Start a project
-            </Link>
-            <a
-              href={site.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full border border-line px-7 py-3.5 text-sm font-semibold uppercase tracking-wider text-ink transition hover:border-ink/30"
-            >
-              View GitHub
-            </a>
           </div>
-        </Reveal>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="px-5 py-16 md:px-8 md:py-24">
+        <div className="mx-auto max-w-7xl">
+          <Reveal>
+            <h2 className="font-display text-[clamp(2.4rem,7vw,5.5rem)] uppercase leading-[0.9] tracking-tight">
+              Things you might ask
+            </h2>
+          </Reveal>
+          <Reveal className="mt-10" delay={0.08}>
+            <Faq />
+          </Reveal>
+        </div>
       </section>
     </main>
   );

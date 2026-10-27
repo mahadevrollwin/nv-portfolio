@@ -1,14 +1,14 @@
 # NVGraphy Portfolio
 
-Personal portfolio for **Mahadev (NVGraphy)** — a product designer & full-stack engineer.
+Personal portfolio for **Mahadev (NVGraphy)** — product design & full-stack craft.
 
-Inspired by the clarity and motion of premium studio sites, built as a unique personal brand experience.
+Inspired by boutique studio sites like [two26.studio](https://two26.studio/): bold display type, warm peach canvas, orange accents, playful structure.
 
 ## Stack
 
-- Next.js (App Router)
+- Next.js 16 (App Router)
 - TypeScript
-- Tailwind CSS
+- Tailwind CSS v4
 - Framer Motion
 
 ## Develop
@@ -18,15 +18,11 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
-## Production
+## Build
 
 ```bash
 npm run build
 npm start
 ```
-
-## Deploy
 
 Connected to GitHub (`mahadevrollwin`) and deployed on Vercel.
