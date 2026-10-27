@@ -1,14 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState, type RefObject } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 import { Lottie } from "lottie-react";
-import {
-  motion,
-  useInView,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { services } from "@/lib/content";
 
 const PATH_D =
@@ -80,18 +74,71 @@ function ServiceRow({ service }: { service: (typeof services)[number] }) {
 }
 
 function ServicesPath({ containerRef }: { containerRef: RefObject<HTMLDivElement | null> }) {
-  const pathRef = useRef<SVGPathElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 0.8", "end 0.35"],
-  });
-  const progress = useSpring(scrollYProgress, { stiffness: 70, damping: 26 });
-  const [len, setLen] = useState(4200);
-  const dashOffset = useTransform(progress, (v) => len * (1 - Math.min(1, Math.max(0, v))));
+  const desktopFillRef = useRef<SVGPathElement>(null);
+  const mobileFillRef = useRef<SVGPathElement>(null);
 
   useEffect(() => {
-    if (pathRef.current) setLen(pathRef.current.getTotalLength());
-  }, []);
+    const container = containerRef.current;
+    const desktop = desktopFillRef.current;
+    const mobile = mobileFillRef.current;
+    if (!container || (!desktop && !mobile)) return;
+
+    let desktopLen = 0;
+    let mobileLen = 0;
+    let raf = 0;
+
+    const measure = () => {
+      if (desktop) desktopLen = desktop.getTotalLength();
+      if (mobile) mobileLen = mobile.getTotalLength();
+    };
+
+    // Progress 0 → 1 as the block scrolls through the viewport (start @ 85vh, end @ 20vh).
+    const progressFor = () => {
+      const rect = container.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      const start = vh * 0.85;
+      const end = vh * 0.2;
+      const distance = rect.height + start - end;
+      if (distance <= 0) return 0;
+      return Math.min(1, Math.max(0, (start - rect.top) / distance));
+    };
+
+    const apply = (p: number) => {
+      if (desktop && desktopLen > 0) {
+        desktop.style.strokeDasharray = `${desktopLen}`;
+        desktop.style.strokeDashoffset = `${desktopLen * (1 - p)}`;
+      }
+      if (mobile && mobileLen > 0) {
+        mobile.style.strokeDasharray = `${mobileLen}`;
+        mobile.style.strokeDashoffset = `${mobileLen * (1 - p)}`;
+      }
+    };
+
+    const onScroll = () => {
+      // Sync update (no spring / no deferred tween) so fill matches the scroll thumb immediately.
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        apply(progressFor());
+      });
+      // Also apply immediately for zero-lag response on the current frame.
+      apply(progressFor());
+    };
+
+    const onResize = () => {
+      measure();
+      apply(progressFor());
+    };
+
+    measure();
+    apply(progressFor());
+    window.addEventListener("scroll", onScroll, { passive: true, capture: true });
+    window.addEventListener("resize", onResize);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll, true);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [containerRef]);
 
   return (
     <>
@@ -113,8 +160,8 @@ function ServicesPath({ containerRef }: { containerRef: RefObject<HTMLDivElement
           opacity={0.22}
           vectorEffect="non-scaling-stroke"
         />
-        <motion.path
-          ref={pathRef}
+        <path
+          ref={desktopFillRef}
           d={PATH_D}
           stroke="#FF5400"
           strokeWidth="16"
@@ -122,7 +169,6 @@ function ServicesPath({ containerRef }: { containerRef: RefObject<HTMLDivElement
           strokeLinejoin="round"
           fill="none"
           vectorEffect="non-scaling-stroke"
-          style={{ strokeDasharray: len, strokeDashoffset: dashOffset }}
         />
       </svg>
       <svg
@@ -143,7 +189,8 @@ function ServicesPath({ containerRef }: { containerRef: RefObject<HTMLDivElement
           opacity={0.22}
           vectorEffect="non-scaling-stroke"
         />
-        <motion.path
+        <path
+          ref={mobileFillRef}
           d={MOBILE_PATH_D}
           stroke="#FF5400"
           strokeWidth="12"
@@ -151,7 +198,6 @@ function ServicesPath({ containerRef }: { containerRef: RefObject<HTMLDivElement
           strokeLinejoin="round"
           fill="none"
           vectorEffect="non-scaling-stroke"
-          style={{ pathLength: progress }}
         />
       </svg>
     </>
