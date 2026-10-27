@@ -28,7 +28,7 @@ export default function ContactPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">
             Inquiries & commissions
           </p>
-          <h1 className="mt-4 font-display text-[clamp(2.8rem,9vw,6.5rem)] uppercase leading-[0.88] tracking-tight text-accent">
+          <h1 className="mt-4 font-display text-[clamp(2.8rem,9vw,6.5rem)] uppercase leading-[1] tracking-tight text-accent">
             Want to start a new project?
           </h1>
           <p className="mt-5 max-w-md text-lg text-ink-soft">

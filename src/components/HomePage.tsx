@@ -171,7 +171,7 @@ export default function HomePage() {
       <section className="px-4 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-[1500px]">
           <Reveal>
-            <h2 className="font-display text-[clamp(2.6rem,8vw,6.2rem)] uppercase leading-[0.88] tracking-tight">
+            <h2 className="font-display text-[clamp(2.6rem,8vw,6.2rem)] uppercase leading-[1] tracking-tight">
               Selected Works
               <Smile />
             </h2>
@@ -182,7 +182,7 @@ export default function HomePage() {
             ))}
           </div>
           <Reveal className="mt-14 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
-            <p className="max-w-lg font-display text-[clamp(1.6rem,3vw,2.6rem)] uppercase leading-[0.95] tracking-tight">
+            <p className="max-w-lg font-display text-[clamp(1.6rem,3vw,2.6rem)] uppercase leading-[1.05] tracking-tight">
               We could keep going, but there&apos;s a whole page for that.
             </p>
             <Link href="/work" className="pill pill-dark gap-0 pr-1.5">
@@ -208,7 +208,7 @@ export default function HomePage() {
       <section className="px-4 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-[1500px]">
           <Reveal>
-            <h2 className="font-display text-[clamp(2.4rem,7vw,5.6rem)] uppercase leading-[0.88] tracking-tight">
+            <h2 className="font-display text-[clamp(2.4rem,7vw,5.6rem)] uppercase leading-[1] tracking-tight">
               Apparently, they like us
             </h2>
           </Reveal>
@@ -264,7 +264,7 @@ export default function HomePage() {
       <section className="px-4 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-[1500px]">
           <Reveal>
-            <h2 className="font-display text-[clamp(2.4rem,7vw,5.6rem)] uppercase leading-[0.88] tracking-tight">
+            <h2 className="font-display text-[clamp(2.4rem,7vw,5.6rem)] uppercase leading-[1] tracking-tight">
               Things you might ask
             </h2>
           </Reveal>

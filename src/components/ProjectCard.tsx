@@ -68,7 +68,7 @@ export default function ProjectCard({ project, index = 0 }: Props) {
           <img src={project.hover} alt="" className="img-hover" loading="lazy" />
         </div>
         <div className="mt-4 flex flex-col gap-1 px-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
-          <h3 className="font-display text-2xl uppercase leading-none tracking-tight md:text-3xl">
+          <h3 className="font-display text-2xl uppercase leading-[1.05] tracking-tight md:text-3xl">
             {project.title}
           </h3>
           <p className="text-sm text-muted">{project.category}</p>

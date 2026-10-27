@@ -109,7 +109,7 @@ html.has-custom-cursor * {
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: -0.02em;
-  line-height: 0.86;
+  line-height: 1;
 }
 
 .orange-stroke {

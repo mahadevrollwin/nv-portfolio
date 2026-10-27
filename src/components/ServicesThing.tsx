@@ -45,12 +45,12 @@ function ServiceRow({ service }: { service: (typeof services)[number] }) {
         className="relative inline-flex items-center justify-center gap-[0.5em] text-[0.85em]"
         style={{ position: "relative", ...service.offset }}
       >
-        <span className="font-display text-[5em] uppercase leading-[0.8] text-accent">
+        <span className="font-display text-[5em] uppercase leading-[0.95] text-accent">
           {service.words[0]}
         </span>
         <LottieIcon src={service.lottie} active={inView} />
         {service.words[1] ? (
-          <span className="font-display text-[5em] uppercase leading-[0.8] text-accent">
+          <span className="font-display text-[5em] uppercase leading-[0.95] text-accent">
             {service.words[1]}
           </span>
         ) : null}
@@ -212,7 +212,7 @@ export default function ServicesThing() {
       <div className="flex w-full flex-col items-center gap-14 px-4 pb-16 pt-24 md:gap-24 md:px-8 md:pb-24 md:pt-40">
         <header className="flex w-full max-w-[1500px] flex-col items-start gap-3 md:items-center md:text-center">
           <p className="text-base font-medium uppercase text-ink md:text-lg">Our Services</p>
-          <h2 className="max-w-[5em] font-display text-[clamp(3rem,10vw,6.25rem)] uppercase leading-[0.85] tracking-tight text-ink">
+          <h2 className="max-w-[5em] font-display text-[clamp(3rem,10vw,6.25rem)] uppercase leading-[1] tracking-tight text-ink">
             This is our thing
           </h2>
         </header>

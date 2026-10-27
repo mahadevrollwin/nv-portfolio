@@ -17,7 +17,7 @@ export default function Footer() {
         aria-hidden
       />
       <div className="relative mx-auto max-w-[1500px]">
-        <h2 className="font-display text-[clamp(2.8rem,10vw,7.2rem)] uppercase leading-[0.86] tracking-tight text-[#f8eee8]">
+        <h2 className="font-display text-[clamp(2.8rem,10vw,7.2rem)] uppercase leading-[1] tracking-tight text-[#f8eee8]">
           Okay, that&apos;s enough website
         </h2>
         <div className="mt-10 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">

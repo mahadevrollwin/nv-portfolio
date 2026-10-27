@@ -16,14 +16,14 @@ export default function AboutPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">
             Independent · Founded on craft
           </p>
-          <h1 className="mt-4 font-display text-[clamp(3rem,12vw,8rem)] uppercase leading-[0.86] tracking-tight text-accent">
+          <h1 className="mt-4 font-display text-[clamp(3rem,12vw,8rem)] uppercase leading-[1] tracking-tight text-accent">
             {aboutPage.hero}
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-ink-soft md:text-xl">{aboutPage.intro}</p>
         </Reveal>
 
         <Reveal className="mt-16 border-t border-line pt-14 md:mt-24">
-          <h2 className="max-w-3xl font-display text-[clamp(2rem,5vw,3.8rem)] uppercase leading-[0.95] tracking-tight">
+          <h2 className="max-w-3xl font-display text-[clamp(2rem,5vw,3.8rem)] uppercase leading-[1.05] tracking-tight">
             {aboutPage.storyTitle}
           </h2>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
@@ -41,7 +41,7 @@ export default function AboutPage() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
                 The office rules {rule.n}
               </p>
-              <h3 className="mt-3 font-display text-[clamp(1.6rem,3vw,2.4rem)] uppercase leading-[0.95] tracking-tight text-accent">
+              <h3 className="mt-3 font-display text-[clamp(1.6rem,3vw,2.4rem)] uppercase leading-[1.05] tracking-tight text-accent">
                 {rule.title}
               </h3>
               <p className="mt-4 max-w-md text-ink-soft">{rule.body}</p>
@@ -50,7 +50,7 @@ export default function AboutPage() {
         </div>
 
         <Reveal className="mt-20 border-t border-line pt-14 md:mt-28">
-          <h2 className="font-display text-[clamp(2.2rem,6vw,4.5rem)] uppercase leading-[0.9] tracking-tight">
+          <h2 className="font-display text-[clamp(2.2rem,6vw,4.5rem)] uppercase leading-[1.05] tracking-tight">
             We&apos;ve got range
           </h2>
           <div className="mt-8 flex flex-wrap gap-2">

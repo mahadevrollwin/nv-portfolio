@@ -16,7 +16,7 @@ export default function WorkPage() {
       <div className="relative mx-auto max-w-[1500px]">
         <Reveal>
           <div className="relative">
-            <h1 className="font-display text-[clamp(3rem,12vw,8rem)] uppercase leading-[0.86] tracking-tight text-accent">
+            <h1 className="font-display text-[clamp(3rem,12vw,8rem)] uppercase leading-[1] tracking-tight text-accent">
               <span className="block">{workPage.line1}</span>
               <span className="block">{workPage.line2}</span>
             </h1>
