@@ -46,32 +46,53 @@ export const aboutBlurb = {
 
 export const services = [
   {
-    title: "Brand\nStrategy",
+    slug: "brand-strategy",
+    words: ["Brand", "Strategy"],
     copy: "We find the idea, the angle and the reasons people should care.",
+    lottie: "/lottie/brand-strategy.json",
+    offset: { right: "-27%" },
   },
   {
-    title: "Brand\nidentity",
+    slug: "brand-identity",
+    words: ["Brand", "identity"],
     copy: "We give your brand a distinctive look, feel and personality that feel unmistakably yours.",
+    lottie: "/lottie/brand-identity.json",
+    offset: { left: "-17%" },
   },
   {
-    title: "Web\ndesign",
+    slug: "web-design",
+    words: ["Web", "design"],
     copy: "We turn your brand into a digital experience that looks great, feels right and is easy to navigate.",
+    lottie: "/lottie/web-design.json",
+    offset: { right: "-5%" },
   },
   {
-    title: "Illustration",
+    slug: "illustration",
+    words: ["Illustration"],
     copy: "We create distinctive illustrations that add character to your brand.",
+    lottie: "/lottie/illustration.json",
+    offset: { right: "-30%" },
   },
   {
-    title: "Motion\nDesign",
+    slug: "motion-design",
+    words: ["Motion", "Design"],
     copy: "We make your brand move, cause standing still just isn’t enough.",
+    lottie: "/lottie/motion-design.json",
+    offset: { left: "-10%" },
   },
   {
-    title: "Packaging\nDesign",
+    slug: "packaging",
+    words: ["Packaging", "Design"],
     copy: "We create packaging that catches the eye and works better for your brand.",
+    lottie: "/lottie/packaging.json",
+    offset: { right: "-20%" },
   },
   {
-    title: "Art\ndirection",
+    slug: "art-direction",
+    words: ["Art", "direction"],
     copy: "We keep all the moving parts moving in the same direction, from the big idea down to the smallest detail.",
+    lottie: "/lottie/art-direction.json",
+    offset: { left: "-21%" },
   },
 ];
 

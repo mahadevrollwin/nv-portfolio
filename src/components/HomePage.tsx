@@ -7,7 +7,6 @@ import {
   aboutBlurb,
   heroTags,
   projects,
-  services,
   site,
   testimonials,
 } from "@/lib/content";
@@ -15,6 +14,7 @@ import { assets } from "@/lib/assets";
 import Faq from "@/components/Faq";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
+import ServicesThing from "@/components/ServicesThing";
 
 function Smile() {
   return (
@@ -188,31 +188,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Services */}
-      <section className="border-y border-line bg-bg-elevated px-4 py-16 md:px-8 md:py-24">
-        <div className="mx-auto max-w-[1500px]">
-          <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">
-              The plot thickens · Very convenient
-            </p>
-            <h2 className="mt-4 font-display text-[clamp(2.6rem,8vw,6.2rem)] uppercase leading-[0.88] tracking-tight">
-              This is our thing
-            </h2>
-          </Reveal>
-          <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-12 lg:gap-y-16">
-            {services.map((service, i) => (
-              <Reveal key={service.title} delay={0.04 * i}>
-                <h3 className="font-display whitespace-pre-line text-[clamp(1.9rem,3.4vw,2.75rem)] uppercase leading-[0.92] tracking-tight text-accent">
-                  {service.title}
-                </h3>
-                <p className="mt-4 max-w-sm text-[0.95rem] leading-relaxed text-ink-soft">
-                  {service.copy}
-                </p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ServicesThing />
 
       {/* Testimonials */}
       <section className="px-4 py-16 md:px-8 md:py-24">
