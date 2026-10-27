@@ -112,11 +112,11 @@ export default function HeroMarquee() {
   return (
     <section
       ref={wrapRef}
-      className="hero-marquee w-full overflow-x-clip"
+      className="hero-marquee w-full overflow-visible"
       aria-label="Marquee"
     >
       <svg
-        viewBox="0 0 1440 370"
+        viewBox="0 -80 1440 450"
         preserveAspectRatio="xMidYMid meet"
         className="block w-full overflow-visible"
         style={{ height: "auto" }}
