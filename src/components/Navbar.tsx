@@ -22,6 +22,7 @@ function ArrowIcon() {
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     setOpen(false);
@@ -34,14 +35,27 @@ export default function Navbar() {
     };
   }, [open]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const primary = navLinks.slice(0, 2);
   const talk = navLinks[2];
 
   return (
     <>
-      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-5 md:pt-4">
+      <header
+        className={`pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 transition-[background-color,backdrop-filter,border-color,box-shadow] duration-300 md:px-5 md:pt-4 ${
+          scrolled
+            ? "border-b border-[rgba(26,26,26,0.08)] bg-[color-mix(in_oklab,var(--bg)_78%,transparent)] shadow-[0_1px_0_rgba(26,26,26,0.04)] backdrop-blur-md"
+            : "border-b border-transparent bg-transparent"
+        }`}
+      >
         <nav
-          className="pointer-events-auto mx-auto grid max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center gap-2"
+          className="pointer-events-auto mx-auto grid max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center gap-2 pb-3 md:pb-4"
           aria-label="Primary"
         >
           <div className="flex items-center gap-2 justify-self-start">
