@@ -130,26 +130,37 @@ export default function HomePage() {
           </div>
         </Reveal>
 
-        <div className="mt-14 overflow-hidden">
-          <div className="marquee-track gap-4 px-2">
-            {[...aboutBlurb.media, ...aboutBlurb.media].map((item, i) => (
+        <div className="media-marquee mt-14">
+          <div className="media-marquee-track">
+            {[0, 1].map((copy) => (
               <div
-                key={`${item.src}-${i}`}
-                className="relative h-44 w-36 shrink-0 overflow-hidden rounded-2xl md:h-56 md:w-44"
+                key={copy}
+                className="media-marquee-group"
+                aria-hidden={copy === 1 ? true : undefined}
               >
-                {item.type === "video" ? (
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="h-full w-full object-cover"
-                    src={item.src}
-                  />
-                ) : (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={item.src} alt="" className="h-full w-full object-cover" loading="lazy" />
-                )}
+                {aboutBlurb.media.map((item) => (
+                  <div key={`${copy}-${item.src}`} className="media-marquee-tile">
+                    {item.type === "video" ? (
+                      <video
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="h-full w-full object-cover"
+                        src={item.src}
+                      />
+                    ) : (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={item.src}
+                        alt=""
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                        draggable={false}
+                      />
+                    )}
+                  </div>
+                ))}
               </div>
             ))}
           </div>
