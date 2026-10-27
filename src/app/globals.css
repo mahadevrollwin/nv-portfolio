@@ -141,6 +141,35 @@ html.has-custom-cursor * {
   border-radius: 0;
 }
 
+.hero-marquee {
+  width: 100%;
+  margin-top: -2.5vw;
+  margin-bottom: -1vw;
+  position: relative;
+  z-index: 5;
+}
+
+.hero-marquee svg {
+  overflow: visible !important;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.hero-marquee-text,
+.hero-marquee-tp,
+.marquee-unit,
+.hero-marquee-text tspan {
+  dominant-baseline: central !important;
+  alignment-baseline: central !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (max-width: 768px) {
+  .hero-marquee {
+    margin-top: -4vw;
+  }
+}
+
 .hero-video-wrap video {
   display: block;
   width: 100%;

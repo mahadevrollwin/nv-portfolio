@@ -14,6 +14,7 @@ import { assets } from "@/lib/assets";
 import Faq from "@/components/Faq";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
+import HeroMarquee from "@/components/HeroMarquee";
 import ServicesThing from "@/components/ServicesThing";
 
 function Smile() {
@@ -108,6 +109,8 @@ export default function HomePage() {
           </video>
         </motion.div>
       </section>
+
+      <HeroMarquee />
 
       {/* About blurb + media strip */}
       <section className="overflow-hidden border-y border-line px-4 py-16 md:px-8 md:py-24">
