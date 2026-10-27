@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import CustomCursor from "@/components/CustomCursor";
+import PageLoader from "@/components/PageLoader";
 import { site } from "@/lib/content";
 import "./globals.css";
 
@@ -30,10 +31,10 @@ export const metadata: Metadata = {
   keywords: [
     "Mahadev",
     "NVGraphy",
-    "product designer",
-    "full-stack engineer",
-    "boutique design",
-    "Next.js developer",
+    "boutique design studio",
+    "branding",
+    "product design",
+    "Next.js",
   ],
   authors: [{ name: site.fullName }],
   creator: site.fullName,
@@ -67,6 +68,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-full flex-col bg-bg text-ink">
         <JsonLd />
+        <PageLoader />
         <CustomCursor />
         <Navbar />
         <div className="flex-1">{children}</div>

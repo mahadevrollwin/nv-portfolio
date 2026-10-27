@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function CustomCursor() {
   const [enabled, setEnabled] = useState(false);
+  const [hovering, setHovering] = useState(false);
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
-  const sx = useSpring(x, { stiffness: 280, damping: 28, mass: 0.6 });
-  const sy = useSpring(y, { stiffness: 280, damping: 28, mass: 0.6 });
+  const sx = useSpring(x, { stiffness: 450, damping: 32, mass: 0.4 });
+  const sy = useSpring(y, { stiffness: 450, damping: 32, mass: 0.4 });
 
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine)").matches;
@@ -16,12 +17,25 @@ export default function CustomCursor() {
     if (!fine || reduce) return;
     setEnabled(true);
 
-    const onMove = (e: MouseEvent) => {
+    const move = (e: MouseEvent) => {
       x.set(e.clientX);
       y.set(e.clientY);
     };
-    window.addEventListener("mousemove", onMove, { passive: true });
-    return () => window.removeEventListener("mousemove", onMove);
+
+    const over = (e: MouseEvent) => {
+      const t = e.target as HTMLElement | null;
+      const hit = t?.closest("a, button, [data-cursor]");
+      setHovering(Boolean(hit));
+    };
+
+    window.addEventListener("mousemove", move);
+    window.addEventListener("mouseover", over);
+    document.documentElement.classList.add("has-custom-cursor");
+    return () => {
+      window.removeEventListener("mousemove", move);
+      window.removeEventListener("mouseover", over);
+      document.documentElement.classList.remove("has-custom-cursor");
+    };
   }, [x, y]);
 
   if (!enabled) return null;
@@ -29,17 +43,16 @@ export default function CustomCursor() {
   return (
     <motion.div
       aria-hidden
-      className="pointer-events-none fixed left-0 top-0 z-[80] hidden md:block"
+      className="pointer-events-none fixed left-0 top-0 z-[90] mix-blend-difference"
       style={{ x: sx, y: sy, translateX: "-50%", translateY: "-50%" }}
     >
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <path
-          d="M4 20c4 4 16 4 20-4"
-          stroke="#ff5400"
-          strokeWidth="4"
-          strokeLinecap="round"
-        />
-      </svg>
+      <div
+        className="rounded-full bg-white transition-[width,height] duration-200"
+        style={{
+          width: hovering ? 56 : 14,
+          height: hovering ? 56 : 14,
+        }}
+      />
     </motion.div>
   );
 }

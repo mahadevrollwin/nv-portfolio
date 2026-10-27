@@ -11,32 +11,52 @@ export const metadata: Metadata = {
 
 export default function WorkPage() {
   return (
-    <main className="px-5 pb-20 pt-28 md:px-8 md:pb-28 md:pt-36">
-      <div className="mx-auto max-w-7xl">
+    <main className="relative overflow-hidden px-4 pb-20 pt-28 md:px-8 md:pb-28 md:pt-36">
+      <div className="orange-stroke orange-stroke-right opacity-80" aria-hidden />
+      <div className="relative mx-auto max-w-[1500px]">
         <Reveal>
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-            {workPage.eyebrow} · {workPage.note}
-          </p>
-          <h1 className="mt-4 font-display text-[clamp(3rem,12vw,8rem)] uppercase leading-[0.88] tracking-tight text-accent">
-            {workPage.title}
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg text-ink-soft md:text-xl">{workPage.intro}</p>
+          <div className="relative">
+            <h1 className="font-display text-[clamp(3rem,12vw,8rem)] uppercase leading-[0.86] tracking-tight text-accent">
+              <span className="block">{workPage.line1}</span>
+              <span className="block">{workPage.line2}</span>
+            </h1>
+            <div className="mt-4 flex flex-wrap gap-2 md:absolute md:right-[8%] md:top-[18%] md:mt-0">
+              {workPage.pills.map((pill, i) => (
+                <span
+                  key={pill}
+                  className={`pill-tag ${i === 0 ? "float-a" : "float-b"}`}
+                  style={{ ["--r" as string]: i === 0 ? "-7deg" : "8deg" }}
+                >
+                  {pill}
+                </span>
+              ))}
+            </div>
+          </div>
+          <p className="mt-8 max-w-xl text-lg text-accent md:text-xl">{workPage.intro}</p>
         </Reveal>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:gap-6">
+        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:gap-8">
           {projects.map((project, i) => (
-            <Reveal key={project.slug} delay={0.04 * i}>
-              <ProjectCard project={project} index={i} />
-            </Reveal>
+            <ProjectCard key={project.slug} project={project} index={i} />
           ))}
         </div>
 
         <Reveal className="mt-16 flex flex-col items-start gap-5 border-t border-line pt-10 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-md font-display text-2xl uppercase leading-tight tracking-tight md:text-3xl">
-            Want something like this for your product?
+            Want something like this for your brand?
           </p>
-          <Link href="/contact" className="pill pill-dark">
-            Let&apos;s Talk
+          <Link href="/contact" className="pill pill-dark gap-0 pr-1.5">
+            <span className="px-1">Let&apos;s Talk</span>
+            <span className="cta-arrow h-9 w-9">
+              <svg width="14" height="14" viewBox="0 0 10 10" fill="none" aria-hidden>
+                <path
+                  d="M1.46 8.54L8.54 1.46M3.06 1.29L8.54 1.46L8.71 6.95"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
           </Link>
         </Reveal>
       </div>

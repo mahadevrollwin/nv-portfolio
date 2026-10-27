@@ -3,13 +3,14 @@
 :root {
   --bg: #f8eee8;
   --bg-elevated: #fdf8f5;
-  --ink: #1a1a1a;
+  --ink: #000000;
   --ink-soft: #3d3d3d;
   --muted: #6b6560;
-  --line: rgba(26, 26, 26, 0.12);
+  --line: rgba(0, 0, 0, 0.1);
   --accent: #ff5400;
   --accent-deep: #e04800;
-  --black: #0a0a0a;
+  --accent-soft: #f9e2e1;
+  --black: #000000;
   --white: #fdf8f5;
 }
 
@@ -22,6 +23,7 @@
   --color-line: var(--line);
   --color-accent: var(--accent);
   --color-accent-deep: var(--accent-deep);
+  --color-accent-soft: var(--accent-soft);
   --color-black: var(--black);
   --color-white: var(--white);
   --font-sans: var(--font-body);
@@ -43,6 +45,11 @@ body {
   overflow-x: hidden;
 }
 
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
 ::selection {
   background: color-mix(in oklab, var(--accent) 40%, transparent);
   color: var(--ink);
@@ -58,11 +65,14 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    padding: 0.65rem 1.25rem;
-    font-size: 0.875rem;
+    padding: 0.7rem 1.35rem;
+    font-size: 0.9rem;
     font-weight: 500;
     line-height: 1;
-    transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+    transition:
+      transform 0.25s ease,
+      background 0.25s ease,
+      color 0.25s ease;
   }
 
   .pill:hover {
@@ -81,72 +91,123 @@ body {
   }
 
   .pill-dark:hover {
-    background: #222;
+    background: #1a1a1a;
+  }
+
+  .pill-tag {
+    background: var(--black);
+    color: var(--white);
+    padding: 0.55rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
   }
 }
 
 .display-xl {
   font-family: var(--font-display), system-ui, sans-serif;
-  font-weight: 700;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: -0.02em;
-  line-height: 0.88;
+  line-height: 0.86;
 }
 
-.track-wide {
-  letter-spacing: 0.22em;
-}
-
-.orange-rings {
+.orange-stroke {
   pointer-events: none;
   position: absolute;
-  inset: auto auto -10% -18%;
-  width: min(70vw, 640px);
-  height: min(70vw, 640px);
-  border: 14px solid var(--accent);
+  border: 18px solid var(--accent);
   border-radius: 50%;
   opacity: 0.95;
 }
 
-.orange-rings::before,
-.orange-rings::after {
-  content: "";
+.orange-stroke-left {
+  width: min(55vw, 520px);
+  height: min(55vw, 520px);
+  left: -18%;
+  top: 12%;
+}
+
+.orange-stroke-right {
+  width: min(48vw, 460px);
+  height: min(48vw, 460px);
+  right: -16%;
+  bottom: 8%;
+}
+
+.hero-video-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.hero-video-wrap video {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.project-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  aspect-ratio: 4 / 5;
+  background: #e8dcd4;
+}
+
+.project-media img {
   position: absolute;
-  inset: 18%;
-  border: 14px solid var(--accent);
-  border-radius: 50%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.45s ease, transform 0.7s ease;
 }
 
-.orange-rings::after {
-  inset: 36%;
+.project-media .img-base {
+  opacity: 1;
 }
 
-@keyframes float-y {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-6deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(-6deg);
-  }
+.project-media .img-hover {
+  opacity: 0;
 }
 
-@keyframes float-y-alt {
-  0%,
-  100% {
-    transform: translateY(0) rotate(8deg);
-  }
-  50% {
-    transform: translateY(-14px) rotate(8deg);
-  }
+.group:hover .project-media .img-base {
+  opacity: 0;
+  transform: scale(1.04);
 }
 
-.tag-float {
-  animation: float-y 6s ease-in-out infinite;
+.group:hover .project-media .img-hover {
+  opacity: 1;
+  transform: scale(1.04);
 }
 
-.tag-float-alt {
-  animation: float-y-alt 7s ease-in-out infinite;
+.cta-arrow {
+  display: inline-flex;
+  height: 2.65rem;
+  width: 2.65rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--accent);
+  color: white;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.cta-arrow:hover {
+  transform: scale(1.06);
+  background: var(--accent-deep);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
 }
 
 @keyframes marquee {
@@ -158,14 +219,45 @@ body {
   }
 }
 
-.marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 36s linear infinite;
+@keyframes float-a {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--r, -8deg));
+  }
+  50% {
+    transform: translateY(-12px) rotate(var(--r, -8deg));
+  }
 }
 
-.marquee:hover {
-  animation-play-state: paused;
+@keyframes float-b {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--r, 6deg));
+  }
+  50% {
+    transform: translateY(-16px) rotate(var(--r, 6deg));
+  }
+}
+
+.float-a {
+  animation: float-a 5.5s ease-in-out infinite;
+}
+
+.float-b {
+  animation: float-b 6.5s ease-in-out infinite;
+}
+
+.smile-mark {
+  display: inline-block;
+  width: 1.1em;
+  height: 0.45em;
+  margin-left: 0.1em;
+  vertical-align: super;
+}
+
+.smile-mark svg {
+  width: 100%;
+  height: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -173,9 +265,15 @@ body {
     scroll-behavior: auto;
   }
 
-  .marquee,
-  .tag-float,
-  .tag-float-alt {
+  .marquee-track,
+  .float-a,
+  .float-b {
     animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .orange-stroke {
+    border-width: 12px;
   }
 }

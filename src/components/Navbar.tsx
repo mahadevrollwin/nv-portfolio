@@ -6,6 +6,19 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { navLinks, site } from "@/lib/content";
 
+function ArrowIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 10 10" fill="none" aria-hidden>
+      <path
+        d="M1.46 8.54L8.54 1.46M3.06 1.29L8.54 1.46L8.71 6.95"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -26,14 +39,18 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-4 pt-4 md:px-6 md:pt-5">
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-5 md:pt-4">
         <nav
-          className="pointer-events-auto mx-auto flex max-w-7xl items-center justify-between gap-3"
+          className="pointer-events-auto mx-auto grid max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center gap-2"
           aria-label="Primary"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 justify-self-start">
             {primary.map((link) => (
-              <Link key={link.href} href={link.href} className="pill pill-light hidden sm:inline-flex">
+              <Link
+                key={link.href}
+                href={link.href}
+                className="pill pill-light hidden sm:inline-flex"
+              >
                 {link.label}
               </Link>
             ))}
@@ -49,14 +66,23 @@ export default function Navbar() {
 
           <Link
             href="/"
-            className="font-display text-[clamp(1.6rem,3vw,2.2rem)] uppercase tracking-tight text-accent"
+            className="justify-self-center font-display text-[clamp(1.5rem,3.2vw,2.35rem)] uppercase leading-none tracking-tight text-accent"
+            aria-label={site.name}
           >
             {site.name}
           </Link>
 
-          <Link href={talk.href} className="pill pill-dark">
-            {talk.label}
-          </Link>
+          <div className="flex items-center justify-self-end gap-2 md:gap-3">
+            <span className="hidden text-xs text-ink lg:inline xl:text-sm">
+              {site.hours}
+            </span>
+            <Link href={talk.href} className="pill pill-dark gap-0 pr-1.5">
+              <span className="px-1">{talk.label}</span>
+              <span className="cta-arrow h-9 w-9">
+                <ArrowIcon />
+              </span>
+            </Link>
+          </div>
         </nav>
       </header>
 
