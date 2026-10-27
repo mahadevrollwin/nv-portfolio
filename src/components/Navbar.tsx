@@ -87,9 +87,6 @@ export default function Navbar() {
           </Link>
 
           <div className="flex items-center justify-self-end gap-2 md:gap-3">
-            <span className="hidden text-xs text-ink lg:inline xl:text-sm">
-              {site.hours}
-            </span>
             <Link href={talk.href} className="pill pill-dark gap-0 pr-1.5">
               <span className="px-1">{talk.label}</span>
               <span className="cta-arrow h-9 w-9">
