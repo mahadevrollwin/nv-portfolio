@@ -15,7 +15,6 @@ import Faq from "@/components/Faq";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
 import HeroMarquee from "@/components/HeroMarquee";
-import HeroIcons from "@/components/HeroIcons";
 import ServicesThing from "@/components/ServicesThing";
 
 function Smile() {
@@ -55,8 +54,6 @@ export default function HomePage() {
             >
               {site.tagline}
             </motion.h1>
-
-            <HeroIcons />
 
             {heroTags.map((tag, i) => (
               <motion.span

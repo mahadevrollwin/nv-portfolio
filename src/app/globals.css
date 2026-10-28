@@ -128,10 +128,10 @@ html.has-custom-cursor * {
 }
 
 .orange-stroke-right {
-  width: min(48vw, 460px);
-  height: min(48vw, 460px);
-  right: -16%;
-  bottom: 8%;
+  width: min(55vw, 520px);
+  height: min(55vw, 520px);
+  right: -18%;
+  top: 12%;
 }
 
 .hero-video-wrap {
